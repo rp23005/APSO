@@ -1,0 +1,25 @@
+version: '3.9'
+services: 
+  java_app_corto:
+    container_name: retu_app
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - java_db_retu
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=isai
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://java_db_retu:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=isai
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  java_db_retu:
+    container_name: java_db_retu
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: isai
+      POSTGRES_DB: postgres
