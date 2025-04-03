@@ -18,7 +18,7 @@ public class Participant {
     @Column(nullable = false, unique = true) //asegura que no se repitan usuarname con unique
     private String username;
     @Column(nullable = false)  
-    private String password; // contraseña irá encriptada
+    private String password; 
     @Column(unique = true) 
     private String email;
 
