@@ -1,0 +1,25 @@
+package com.example.application.views.gameMenu;
+
+import com.example.application.views.dice.DiceView;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
+
+@Route("games")
+public class GameMenuView extends AppLayout {
+
+    public GameMenuView() {
+        VerticalLayout menuLayout = new VerticalLayout();
+
+        Button backToLogin = new Button("Volver al inicio", e -> 
+            getUI().ifPresent(ui -> ui.navigate(""))
+        );
+
+        menuLayout.add(new RouterLink("Juego de dados", DiceView.class));
+        menuLayout.add(backToLogin);
+
+        addToDrawer(menuLayout);
+    }
+}
