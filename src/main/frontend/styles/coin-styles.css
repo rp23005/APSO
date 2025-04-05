@@ -1,0 +1,36 @@
+.coin {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.6s;
+    margin-bottom: 1rem;
+}
+
+@keyframes flip {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(1800deg); }
+    100% { transform: rotateY(3600deg); }
+}
+
+/* Notificación personalizada */
+.custom-notification {
+    position: absolute;
+    top: 30%; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro translúcido */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    z-index: 1000;
+    animation: fadeInOut 2.5s ease-in-out;
+}
+
+/* Animación suave de entrada y salida */
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -10px); }
+    10% { opacity: 1; transform: translate(-50%, 0); }
+    90% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
