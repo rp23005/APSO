@@ -4,6 +4,7 @@ import com.example.application.views.roulette.RouletteView;
 import com.example.application.views.coin.CoinView;
 import com.example.application.views.dice.DiceView;
 import com.example.application.views.groupgenerator.GroupGeneratorView;
+import com.example.application.views.numAleatorios.NumAleatoriosView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -24,6 +25,7 @@ public class GameMenuView extends AppLayout {
         menuLayout.add(new RouterLink("Generador de grupos", GroupGeneratorView.class));
         menuLayout.add(new RouterLink("Juego de la ruleta", RouletteView.class));
         menuLayout.add(new RouterLink("Juego de la moneda", CoinView.class));
+        menuLayout.add(new RouterLink("Numeros Aleatorios", NumAleatoriosView.class));
         menuLayout.add(backToLogin);
 
         addToDrawer(menuLayout);
