@@ -6,7 +6,7 @@ import com.example.application.views.dice.DiceView;
 import com.example.application.views.groupgenerator.GroupGeneratorView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;Ñ
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
