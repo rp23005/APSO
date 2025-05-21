@@ -63,4 +63,6 @@ public class ParticipantService {
         return participantRepository.findByUsername(username)
                     .filter(p -> p.getPassword().equals(password));
     }
+
+
 }
