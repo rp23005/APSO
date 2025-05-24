@@ -8,6 +8,11 @@
 *.iml
 .DS_Store
 
+# Archivo de entorno en este caso .env
+.env
+.env.*
+!.env.example
+
 # The following files are generated/updated by vaadin-maven-plugin
 node_modules/
 src/main/frontend/generated/
