@@ -1,5 +1,8 @@
 package com.example.application.views.empty;
 
+import org.vaadin.lineawesome.LineAwesomeIconUrl;
+
+import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
@@ -7,11 +10,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
-import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Empty")
-@Route("")
+@Route(value = "", layout = MainLayout.class) // root route
+@RouteAlias(value = "empty", layout = MainLayout.class)
 @Menu(order = 0, icon = LineAwesomeIconUrl.FILE)
 public class EmptyView extends VerticalLayout {
 
