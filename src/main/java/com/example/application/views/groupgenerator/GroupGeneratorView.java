@@ -1,15 +1,29 @@
 package com.example.application.views.groupgenerator;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import com.example.application.utils.PDFExporter;
+import com.example.application.utils.Participant;
+import com.itextpdf.io.source.ByteArrayOutputStream;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
-import java.util.*;
+import com.vaadin.flow.server.StreamResource;
 
 @PageTitle("Generador de grupos")
 @Route("Generador_de_grupos")
@@ -27,13 +41,14 @@ public class GroupGeneratorView extends VerticalLayout {
     IntegerField numberOfGroups;
     Button generateGroupsButton;
     Button cleanTextAreaButton;
+    Button printResultsButton;
     H2 gNumber;
 
     List<String> participants;
 
     public GroupGeneratorView() {
 
-        setAlignItems(Alignment.CENTER);  
+        setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
         container1 = new VerticalLayout();
@@ -91,11 +106,13 @@ public class GroupGeneratorView extends VerticalLayout {
         generateGroupsButton = new Button("Generar equipos");
 
         generateGroupsButton.addClickListener(e -> {
+            printResultsButton.setVisible(true);
             String input = textArea.getValue();
             participants = new ArrayList<>();
             participants = Arrays.asList(input.split("\\R"));
             if (numberOfGroups.getValue() > 0 && numberOfParticipants.getValue() > 0 &&
-                    numberOfGroups.getValue() != null && numberOfParticipants.getValue() != 0 && participants.size() != 0) {
+                    numberOfGroups.getValue() != null && numberOfParticipants.getValue() != 0
+                    && participants.size() != 0) {
                 gritLayout.removeAll();
                 gritLayout.setVisible(true);
                 generateGroups(participants, numberOfGroups.getValue(), numberOfParticipants.getValue());
@@ -109,35 +126,39 @@ public class GroupGeneratorView extends VerticalLayout {
             textArea.clear();
         });
 
+        printResultsButton = new Button("Imprimir resultados");
+        printResultsButton.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+        printResultsButton.setVisible(false);
+        printResultsButton.addClickListener(e -> {
+            List<List<Participant>> allGroups = new ArrayList<>();
+            gritLayout.getChildren()
+                    // Solo permite componentes que sean vertical Layouts
+                    .filter(component -> component instanceof VerticalLayout)
+                    // Convertimos cada componente(grit) en objetos para poder usar sus metodos
+                    .map(component -> (VerticalLayout) component)
+                    .forEach(individualGrit -> {
+                        Grid<Participant> grid = findGridInLayout(individualGrit);
+                        if (grid != null) {
+                            List<Participant> participants = grid.getGenericDataView()
+                                    .getItems()
+                                    .collect(Collectors.toList());
+                            allGroups.add(participants);
+                        }
+                    });
+
+            Anchor downloadLink = createPdfDownloadAnchor(allGroups);
+            add(downloadLink);
+            downloadLink.getElement().executeJs("this.click();");
+        });
+
         centeredLayout1.add(textArea);
         customizationLayout.add(numberOfParticipants, numberOfGroups);
-        buttonLayout.add(generateGroupsButton, cleanTextAreaButton);
+        buttonLayout.add(generateGroupsButton, cleanTextAreaButton, printResultsButton);
         centeredLayout2.add(customizationLayout, buttonLayout);
         container2.add(centeredLayout1, centeredLayout2);
         container1.add(container2, gritLayout);
         add(container1);
 
-    }
-
-    public static class Participant {
-        private int numero;
-        private String nombre;
-
-        public Participant() {
-        }
-
-        public Participant(int numero, String nombre) {
-            this.numero = numero;
-            this.nombre = nombre;
-        }
-
-        public int getNumero() {
-            return numero;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
     }
 
     void generateGroups(List<String> participants, int nGroups, int nParticipants) {
@@ -184,5 +205,25 @@ public class GroupGeneratorView extends VerticalLayout {
 
     }
 
-}
+    private Grid<Participant> findGridInLayout(VerticalLayout layout) {
+        for (Component component : layout.getChildren().toList()) {
+            if (component instanceof Grid) {
+                return (Grid<Participant>) component;
+            }
+        }
+        return null;
+    }
 
+    private Anchor createPdfDownloadAnchor(List<List<Participant>> allGroups) {
+        StreamResource resource = new StreamResource("groups.pdf", () -> {
+            ByteArrayOutputStream pdfStream = new ByteArrayOutputStream();
+            PDFExporter.exportToPdf(allGroups, pdfStream);
+            return new ByteArrayInputStream(pdfStream.toByteArray());
+        });
+
+        Anchor downloadLink = new Anchor(resource, "");
+        downloadLink.getElement().setAttribute("download", true);
+        return downloadLink;
+    }
+
+}
