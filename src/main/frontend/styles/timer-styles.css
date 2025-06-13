@@ -1,0 +1,17 @@
+.timer-view-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #2575fc 100%);
+}
+
+.success-notification{
+    background-color: #2ecc71 !important;
+    color: white !important;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
