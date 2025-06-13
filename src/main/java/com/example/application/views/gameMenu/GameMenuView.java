@@ -1,6 +1,7 @@
 package com.example.application.views.gameMenu;
 
 import com.example.application.views.roulette.RouletteView;
+import com.example.application.views.timer.TimerView;
 import com.example.application.views.coin.CoinView;
 import com.example.application.views.dice.DiceView;
 import com.example.application.views.groupgenerator.GroupGeneratorView;
@@ -28,6 +29,7 @@ public class GameMenuView extends AppLayout {
         menuLayout.add(new RouterLink("Juego de la moneda", CoinView.class));
         menuLayout.add(new RouterLink("Numeros Aleatorios", NumAleatoriosView.class));
         menuLayout.add(new RouterLink("Amigo Secreto", AmigoSecretoView.class));
+        menuLayout.add(new RouterLink("Cronómetro", TimerView.class));
         menuLayout.add(backToLogin);
 
         addToDrawer(menuLayout);
