@@ -14,8 +14,6 @@ import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
@@ -56,9 +54,7 @@ public class MainLayout extends AppLayout {
         SideNav nav = new SideNav();
 
         nav.addItem
-        (new SideNavItem("Menu", MainView.class, LineAwesomeIcon.CAMPGROUND_SOLID.create()));
-        nav.addItem(new SideNavItem("Importar Estudiantes", "importar", new Icon(VaadinIcon.UPLOAD)));
-        
+        (new SideNavItem("Menu", MainView.class, LineAwesomeIcon.CAMPGROUND_SOLID.create())); 
         return nav;
     }
 

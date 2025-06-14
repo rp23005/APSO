@@ -1,5 +1,7 @@
 package com.example.application.views.login;
 
+
+
 import com.example.application.services.ParticipantService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
@@ -8,6 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+
 
 @Route("login")
 public class LoginView extends VerticalLayout {
@@ -48,7 +51,7 @@ public class LoginView extends VerticalLayout {
 
         // Botón de login
         Button loginButton = new Button("Iniciar sesión", event -> {
-            boolean authenticated = participantService.Login(
+            boolean authenticated = this.participantService.Login(
                 usernameField.getValue(), 
                 passwordField.getValue()
             ).isPresent();

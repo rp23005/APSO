@@ -58,7 +58,7 @@ public class RegisterView extends VerticalLayout {
             newParticipant.setPassword(passwordField.getValue());
             newParticipant.setEmail(emailField.getValue());
 
-            participantService.register(newParticipant);
+            this.participantService.register(newParticipant);
             Notification.show("Registro exitoso");
             getUI().ifPresent(ui -> ui.navigate("games"));
         });
