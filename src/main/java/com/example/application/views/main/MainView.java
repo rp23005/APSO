@@ -1,145 +1,122 @@
 package com.example.application.views.main;
 
-import com.example.application.views.MainLayout;
+import com.example.application.views.SimpleLayout;
 import com.example.application.views.gameMenu.GameMenuView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.dom.DomEventListener;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import com.vaadin.flow.component.dependency.CssImport;
 
 @PageTitle("Menu Principal")
-@Route(value = "Menu", layout = MainLayout.class)
+@Route(value = "Menu", layout = SimpleLayout.class)
 @AnonymousAllowed
+@CssImport(value = "./styles/main-styles.css")
 public class MainView extends VerticalLayout {
 
+    private final Button backButton;
+
     public MainView() {
-        // configuración del layout principal
+        // Configuración principal
+        addClassName("main-view");
+        setSizeFull();
+        setPadding(false);
+        setSpacing(false);
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-        setPadding(true);
-        setSpacing(false);
-        setHeightFull();
-        getStyle()
-                .set("background", "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)")
-                .set("font-family", "Arial, sans-serif");
+        getElement().setAttribute("theme", "dark");
 
-        // contenedor de la tarjeta
+        // Crear efecto de burbujas
+        createBubbles();
+
+        // Botón de atrás
+        backButton = new Button("Atrás", e -> {
+            getUI().ifPresent(ui -> ui.navigate("empty"));
+        });
+        backButton.addClassName("back-button");
+        add(backButton);
+
+        // Contenedor de la tarjeta - ahora más estrecho
         VerticalLayout cardLayout = new VerticalLayout();
-        cardLayout.setWidth("500px");
-        cardLayout.setPadding(true);
-        cardLayout.getStyle()
-                .set("background", "#ffffff")
-                .set("border-radius", "16px")
-                .set("box-shadow", "0 8px 30px rgba(0,0,0,0.12)")
-                .set("padding", "2rem")
-                .set("margin", "1rem");
+        cardLayout.addClassName("card-container");
+        cardLayout.setSpacing(false);
+        cardLayout.setPadding(false);
+        cardLayout.setAlignItems(Alignment.CENTER);
+        cardLayout.setWidth("300px"); // Ancho más compacto
 
-        // Título principal
+        // Título principal - texto más compacto
         H1 title = new H1("Bienvenido a APSO");
-        title.getStyle()
-                .set("color", "#2c3e50")
-                .set("margin", "0 0 2rem 0")
-                .set("font-size", "2rem")
-                .set("text-align", "center");
+        title.addClassName("title");
 
-        // Botones
+        // Contenedor para botones
+        VerticalLayout buttonContainer = new VerticalLayout();
+        buttonContainer.addClassName("button-container");
+        buttonContainer.setPadding(false);
+        buttonContainer.setSpacing(false);
+        buttonContainer.setWidthFull();
+
+        // Botones con texto más compacto
         Button registerButton = createAuth0Button(
                 "Crear Cuenta",
-                "#2ecc71",
+                "register-button",
                 VaadinIcon.USER_CHECK,
                 "/oauth2/authorization/auth0"
-        // RegisterView.class
         );
 
         Button loginButton = createAuth0Button(
                 "Iniciar Sesión",
-                "#3498db",
+                "login-button",
                 VaadinIcon.SIGN_IN,
                 "/oauth2/authorization/auth0"
-        // LoginView.class
         );
 
         Button guestButton = createActionButton(
-                "Jugar como Invitado",
-                "#e67e22",
+                "Jugar Invitado", // Texto reducido
+                "guest-button",
                 VaadinIcon.GAMEPAD,
                 GameMenuView.class);
 
-        cardLayout.add(title, registerButton, loginButton, guestButton);
+        buttonContainer.add(registerButton, loginButton, guestButton);
+        cardLayout.add(title, buttonContainer);
         add(cardLayout);
     }
 
-    private Button createAuth0Button(String text, String color, VaadinIcon icon, String url) {
+    private void createBubbles() {
+        getElement().executeJs(
+            "for(let i = 0; i < 15; i++) {" +
+            "   const bubble = document.createElement('div');" +
+            "   bubble.className = 'bubble';" +
+            "   const size = Math.random() * 20 + 5;" +
+            "   bubble.style.width = size + 'px';" +
+            "   bubble.style.height = size + 'px';" +
+            "   bubble.style.left = Math.random() * 100 + '%';" +
+            "   bubble.style.top = Math.random() * 100 + '%';" +
+            "   bubble.style.animationDuration = (Math.random() * 6 + 4) + 's';" +
+            "   bubble.style.animationDelay = (Math.random() * 5) + 's';" +
+            "   this.appendChild(bubble);" +
+            "}", 
+            getElement()
+        );
+    }
+
+    private Button createAuth0Button(String text, String buttonClass, VaadinIcon icon, String url) {
         Button button = new Button(text, icon.create());
-        button.setWidthFull();
+        button.addClassName("auth-button");
+        button.addClassName(buttonClass);
         button.addClickListener(e -> getUI().ifPresent(ui -> ui.getPage().setLocation(url)));
-
-        button.getStyle()
-                .set("background", color)
-                .set("color", "white")
-                .set("border", "none")
-                .set("border-radius", "8px")
-                .set("padding", "1.25rem")
-                .set("font-size", "1.1rem")
-                .set("margin", "8px 0")
-                .set("cursor", "pointer")
-                .set("transition", "all 0.2s ease-in-out")
-                .set("display", "flex")
-                .set("align-items", "center")
-                .set("gap", "0.75rem");
-
-        DomEventListener hoverEffect = e -> button.getStyle()
-                .set("transform", "translateY(-2px)")
-                .set("box-shadow", "0 4px 12px rgba(0,0,0,0.15)");
-
-        DomEventListener resetEffect = e -> button.getStyle()
-                .set("transform", "translateY(0)")
-                .set("box-shadow", "none");
-
-        button.getElement().addEventListener("mouseenter", hoverEffect);
-        button.getElement().addEventListener("mouseleave", resetEffect);
-
         button.setIconAfterText(false);
         return button;
     }
 
-    private Button createActionButton(String text, String color, VaadinIcon icon, Class<? extends Component> view) {
+    private Button createActionButton(String text, String buttonClass, VaadinIcon icon, Class<? extends Component> view) {
         Button button = new Button(text, icon.create());
-        button.setWidthFull();
+        button.addClassName("auth-button");
+        button.addClassName(buttonClass);
         button.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(view)));
-
-        // Estilo base
-        button.getStyle()
-                .set("background", color)
-                .set("color", "white")
-                .set("border", "none")
-                .set("border-radius", "8px")
-                .set("padding", "1.25rem")
-                .set("font-size", "1.1rem")
-                .set("margin", "8px 0")
-                .set("cursor", "pointer")
-                .set("transition", "all 0.2s ease-in-out")
-                .set("display", "flex")
-                .set("align-items", "center")
-                .set("gap", "0.75rem");
-
-        // eventos hover
-        DomEventListener hoverEffect = e -> button.getStyle()
-                .set("transform", "translateY(-2px)")
-                .set("box-shadow", "0 4px 12px rgba(0,0,0,0.15)");
-
-        DomEventListener resetEffect = e -> button.getStyle()
-                .set("transform", "translateY(0)")
-                .set("box-shadow", "none");
-
-        button.getElement().addEventListener("mouseenter", hoverEffect);
-        button.getElement().addEventListener("mouseleave", resetEffect);
-
         button.setIconAfterText(false);
         return button;
     }

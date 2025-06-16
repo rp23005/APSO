@@ -1,0 +1,100 @@
+.game-menu-view {
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 3rem;
+    max-width: 800px;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.title-container {
+    text-align: center;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #2c3e50;
+    margin: 0;
+    position: relative;
+    padding-bottom: 1.5rem;
+    line-height: 1.3;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.main-title::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+}
+
+.back-button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white !important;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(106, 17, 203, 0.25);
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+}
+
+.back-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(106, 17, 203, 0.2);
+}
+
+/* Tarjeta informativa adicional */
+.info-card {
+    background: #f8f9fc;
+    border-left: 4px solid #6a11cb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 600px;
+}

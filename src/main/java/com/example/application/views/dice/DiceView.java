@@ -13,7 +13,7 @@ import java.util.Random;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.component.html.Span;
 
-@PageTitle("Dice")
+@PageTitle("Juego de Dados")
 @Route("Dice")
 public class DiceView extends VerticalLayout {
 
