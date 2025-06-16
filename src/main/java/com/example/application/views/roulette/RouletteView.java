@@ -10,7 +10,7 @@ import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Roulette")
+@PageTitle("Juego de la Ruleta")
 @JavaScript("./js/roulette.js")
 @Route("Roulette")
 public class RouletteView extends VerticalLayout {

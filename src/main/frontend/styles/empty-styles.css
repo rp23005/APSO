@@ -1,0 +1,111 @@
+/* Estilos principales para EmptyView */
+.empty-view {
+    background: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.empty-view h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    line-height: 1.4;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-container {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.logo-container::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    z-index: 0;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-container img {
+    position: relative;
+    z-index: 1;
+    max-width: min(500px, 90vw);
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.logo-container img:hover {
+    transform: scale(1.03);
+}
+
+.play-button {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    color: #4B0082 !important;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.play-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #FFA500, #FFD700);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.play-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.play-button:hover::before {
+    opacity: 1;
+}
+
+.play-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto de partículas decorativas */
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-100px) rotate(360deg); }
+}

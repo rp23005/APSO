@@ -1,0 +1,133 @@
+/* Estilos generales del sidebar */
+
+/* Fondo del drawer más claro para mejor contraste */
+vaadin-app-layout::part(drawer) {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+    color: white;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Encabezado del sidebar .................*/
+.sidebar-header {
+    display: flex; /* Alinea los elementos en una fila */
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.sidebar-logo {
+    margin-right: 12px;
+    height: 50px;
+}
+
+.app-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+/*------------------------------------------------*/
+
+/* Texto más claro y con más contraste */
+.side-nav [part="item"] {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.side-nav{
+    color: white;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.side-nav [part="item"]:hover {
+    color: white !important;
+}
+
+/* Iconos más grandes y con mejor contraste */
+.side-nav vaadin-icon {
+    color: rgba(255, 255, 255, 0.9) !important;
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+.app-name {
+    margin-left: 5px;
+    align-items: center;
+}
+
+/* Header con gradiente que coincide con la aplicación */
+vaadin-app-layout [part="navbar"] {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    height: 70px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.753);
+}
+
+/* Botón de menú visible */
+.menu-toggle {
+    color: rgb(0, 0, 0) !important;
+    background: rgba(238, 14, 14, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background: rgba(103, 243, 115, 0.2);
+    transform: scale(1.05);
+}
+
+/* Título de vista con gradiente de texto */
+.view-title {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+
+/* Transición suave entre header y contenido */
+vaadin-app-layout [part="content"] {
+    background: linear-gradient(to bottom, #f5f7fa, #e4e7f1);
+    padding: 2rem;
+}
+
+/* Animación de entrada para los ítems del menú */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.side-nav [part="item"] {
+    animation: slideIn 0.4s ease forwards;
+    animation-delay: calc(var(--index) * 0.05s);
+    opacity: 0;
+}
+
+vaadin-app-layout::part(drawer) {
+    background: linear-gradient(135deg, #2b28a9 0%, #f998f294 100%);
+    box-shadow: 5px 0 15px rgba(248, 0, 0, 0.1);
+}
+
+sidebar-scroller{
+    border: #fa0000 1px solid;
+}

@@ -12,7 +12,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Coin Game")
+@PageTitle("Juego de la Moneda")
 @Route("Coin")
 @CssImport("./styles/coin-styles.css")
 public class CoinView extends VerticalLayout {
